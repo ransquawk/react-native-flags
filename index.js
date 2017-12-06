@@ -1,9 +1,8 @@
 // @flow
 
 import React from 'react';
-import { Image } from 'react-native';
+import { Image,View } from 'react-native';
 import * as flags from './flags';
-
 type Props = {
   size: 16 | 24 | 32 | 48 | 64,
   code: string,
@@ -12,15 +11,19 @@ type Props = {
 };
 
 const Flag = ({ size = 64, code, type = 'shiny', style }: Props) => {
-  const flag = flags[type][`icons${size}`][code];
+  const  flag = flags[type][`icons${size}`][code];
   const unknownFlag = flags[type][`icons${size}`]['unknown'];
-
-  return (
+   if(flag){
+ return (
     <Image
-      source={flag || unknownFlag}
+      source={flag}
       style={[{ width: size, height: size }, style]}
     />
   );
+}else{
+  return(
+    <View style={{height:size,backgroundColor:'white',zIndex:100}}/>
+  );
+}
 };
-
 export default Flag;
